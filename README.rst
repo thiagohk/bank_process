@@ -22,7 +22,7 @@ Execute loader:
    load-transactions <accounts CSV file> <transactions CSV file>
    Example: load-transactions accounts.csv transactions.csv
 
-A error log file, called transactions_loader.log, will be generated.
+An error log file, called transactions_loader.log, will be generated.
 
 Execute unit tests (it may require sudo):
 
