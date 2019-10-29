@@ -8,4 +8,10 @@ class Transaction:
         self.amount = amount
 
     def is_debit(self):
+        """Checks if transaction is a debit operation
+
+        Returns:
+        :boolean:`is_debit`: True if is debit operation
+        
+        """
         return self.amount < 0

@@ -14,6 +14,14 @@ __license__ = "mit"
 _logger = logging.getLogger(__name__)
 
 def load_accounts(accounts_file_name):
+    """Load accounts from file
+
+    Args:
+      accounts_file_name (str): CSV file name with accounts info 
+    
+    Returns:
+      :<int, Account>:`accounts`: dictionary of accounts
+    """
     accounts = {}
     with open(accounts_file_name) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
@@ -23,6 +31,14 @@ def load_accounts(accounts_file_name):
     return accounts
 
 def load_transactions(transactions_file_name):
+    """Load transactions from file
+
+    Args:
+      transactions_file_name (str): CSV file name with transactions info 
+    
+    Returns:
+      :[Transaction]:`transactions`: array of transactions
+    """
     transactions = []
     with open(transactions_file_name) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
@@ -31,12 +47,28 @@ def load_transactions(transactions_file_name):
     return transactions
 
 def print_accounts(accounts, accountsOutput):
+    """Prints accounts on the output in CSV format
+
+    Args:
+      accounts (<int, Account>): dictionary with key as account id and value as Account
+      accountsOutput (outout): Output descriptor to print the results
+
+    """
     accountsWriter = csv.writer(accountsOutput, delimiter=',')
     for account_id in accounts.keys():
         account = accounts[account_id]
         accountsWriter.writerow([account.id,account.balance])
 
 def process_transactions(accounts, transactions):
+    """Process transactions in the accounts
+
+    Args:
+      accounts (<int, Account>): dictionary with key as account id and value as Account
+      transactions ([Transaction]): Array of Transaction
+
+    Returns:
+      :<int, Account>:`accounts`: dictionary with processed accounts
+    """
     for transaction in transactions:
         if (transaction.account_id in accounts):
             account = accounts[transaction.account_id]
@@ -47,6 +79,13 @@ def process_transactions(accounts, transactions):
 
 
 def main(sysargv, accountsOutput):
+    """Main business logic (setup logging, parse arguments and process files)
+
+    Args:
+      sysargv ([str]): command line parameters as list of strings
+      accountsOutput (outout): Output descriptor to print the results
+
+    """
     args = parse_args(sysargv)
     setup_logging()
     accounts = load_accounts(args.accounts_file)
@@ -55,6 +94,9 @@ def main(sysargv, accountsOutput):
     print_accounts(accounts, accountsOutput)
 
 def run():
+    """Call the main method
+
+    """
     main(sys.argv[1:], sys.stdout)
 
 def parse_args(args):
